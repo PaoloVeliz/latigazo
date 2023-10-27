@@ -28,56 +28,75 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerMainMenu(): array
     {
         return [
-            Menu::make('Example screen')
+            Menu::make('DashBoard')
                 ->icon('monitor')
                 ->route('platform.example')
                 ->title('Navigation')
                 ->badge(fn () => 6),
 
-            Menu::make('Dropdown menu')
-                ->icon('code')
-                ->list([
-                    Menu::make('Sub element item 1')->icon('bag'),
-                    Menu::make('Sub element item 2')->icon('heart'),
-                ]),
+            // Menu::make('Dropdown menu')
+            //     ->icon('code')
+            //     ->list([
+            //         Menu::make('Sub element item 1')->icon('bag'),
+            //         Menu::make('Sub element item 2')->icon('heart'),
+            //     ]),
 
-            Menu::make('Basic Elements')
-                ->title('Form controls')
+            Menu::make('Presentaciones de producto')
+                ->icon('bag')
+                ->route('platform.presentation'),
+                // ->list([
+                //     Menu::make('Todas las presentaciones')->icon('bag')->route('platform.presentations'),
+                // ]),
+            
+            Menu::make('Inventario')
                 ->icon('note')
-                ->route('platform.example.fields'),
+                ->route('platform.stock'),
+            
+            Menu::make('Productos')
+                ->icon('note')
+                ->route('platform.product'),
 
-            Menu::make('Advanced Elements')
-                ->icon('briefcase')
-                ->route('platform.example.advanced'),
+            Menu::make('Ordenes')
+                ->icon('note')
+                ->route('platform.order'),
+            
+            // Menu::make('Basic Elements')
+            //     ->title('Form controls')
+            //     ->icon('note')
+            //     ->route('platform.example.fields'),
 
-            Menu::make('Text Editors')
-                ->icon('list')
-                ->route('platform.example.editors'),
+            // Menu::make('Advanced Elements')
+            //     ->icon('briefcase')
+            //     ->route('platform.example.advanced'),
 
-            Menu::make('Overview layouts')
-                ->title('Layouts')
-                ->icon('layers')
-                ->route('platform.example.layouts'),
+            // Menu::make('Text Editors')
+            //     ->icon('list')
+            //     ->route('platform.example.editors'),
 
-            Menu::make('Chart tools')
-                ->icon('bar-chart')
-                ->route('platform.example.charts'),
+            // Menu::make('Overview layouts')
+            //     ->title('Layouts')
+            //     ->icon('layers')
+            //     ->route('platform.example.layouts'),
 
-            Menu::make('Cards')
-                ->icon('grid')
-                ->route('platform.example.cards')
-                ->divider(),
+            // Menu::make('Chart tools')
+            //     ->icon('bar-chart')
+            //     ->route('platform.example.charts'),
 
-            Menu::make('Documentation')
-                ->title('Docs')
-                ->icon('docs')
-                ->url('https://orchid.software/en/docs'),
+            // Menu::make('Cards')
+            //     ->icon('grid')
+            //     ->route('platform.example.cards')
+            //     ->divider(),
 
-            Menu::make('Changelog')
-                ->icon('shuffle')
-                ->url('https://github.com/orchidsoftware/platform/blob/master/CHANGELOG.md')
-                ->target('_blank')
-                ->badge(fn () => Dashboard::version(), Color::DARK()),
+            // Menu::make('Documentation')
+            //     ->title('Docs')
+            //     ->icon('docs')
+            //     ->url('https://orchid.software/en/docs'),
+
+            // Menu::make('Changelog')
+            //     ->icon('shuffle')
+            //     ->url('https://github.com/orchidsoftware/platform/blob/master/CHANGELOG.md')
+            //     ->target('_blank')
+            //     ->badge(fn () => Dashboard::version(), Color::DARK()),
 
             Menu::make(__('Users'))
                 ->icon('user')

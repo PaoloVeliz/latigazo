@@ -2,9 +2,14 @@
 
 namespace App\Orchid\Screens\Examples;
 
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Presentation;
 use App\Orchid\Layouts\Examples\ChartBarExample;
 use App\Orchid\Layouts\Examples\ChartLineExample;
+use App\Orchid\Layouts\OrderListLayout;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
@@ -36,24 +41,24 @@ class ExampleScreen extends Screen
         return [
             'charts'  => [
                 [
-                    'name'   => 'Some Data',
+                    'name'   => 'Producto 1',
                     'values' => [25, 40, 30, 35, 8, 52, 17],
-                    'labels' => ['12am-3am', '3am-6am', '6am-9am', '9am-12pm', '12pm-3pm', '3pm-6pm', '6pm-9pm'],
+                    'labels' => ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4', 'Semana 5', 'Semana 6', 'Semana 7'],
                 ],
                 [
-                    'name'   => 'Another Set',
+                    'name'   => 'Producto 2',
                     'values' => [25, 50, -10, 15, 18, 32, 27],
-                    'labels' => ['12am-3am', '3am-6am', '6am-9am', '9am-12pm', '12pm-3pm', '3pm-6pm', '6pm-9pm'],
+                    'labels' => ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4', 'Semana 5', 'Semana 6', 'Semana 7'],
                 ],
                 [
-                    'name'   => 'Yet Another',
+                    'name'   => 'Producto 3',
                     'values' => [15, 20, -3, -15, 58, 12, -17],
-                    'labels' => ['12am-3am', '3am-6am', '6am-9am', '9am-12pm', '12pm-3pm', '3pm-6pm', '6pm-9pm'],
+                    'labels' => ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4', 'Semana 5', 'Semana 6', 'Semana 7'],
                 ],
                 [
-                    'name'   => 'And Last',
+                    'name'   => 'Producto 4',
                     'values' => [10, 33, -8, -3, 70, 20, -34],
-                    'labels' => ['12am-3am', '3am-6am', '6am-9am', '9am-12pm', '12pm-3pm', '3pm-6pm', '6pm-9pm'],
+                    'labels' => ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4', 'Semana 5', 'Semana 6', 'Semana 7'],
                 ],
             ],
             'table'   => [
@@ -70,6 +75,7 @@ class ExampleScreen extends Screen
                 'orders'   => ['value' => number_format(10000), 'diff' => 0],
                 'total'    => number_format(65661),
             ],
+            'Ordenes' => Order::latest()->get(),
         ];
     }
 
@@ -80,7 +86,7 @@ class ExampleScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Example screen';
+        return 'Buenos dias ' . Auth::user()->name;
     }
 
     /**
@@ -90,7 +96,7 @@ class ExampleScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'Sample Screen Components';
+        return 'Vista rapida de la situacion actual';
     }
 
     /**
@@ -102,44 +108,44 @@ class ExampleScreen extends Screen
     {
         return [
 
-            Button::make('Show toast')
-                ->method('showToast')
-                ->novalidate()
-                ->icon('bag'),
+            // Button::make('Show toast')
+            //     ->method('showToast')
+            //     ->novalidate()
+            //     ->icon('bag'),
 
-            ModalToggle::make('Launch demo modal')
-                ->modal('exampleModal')
-                ->method('showToast')
-                ->icon('full-screen'),
+            // ModalToggle::make('Launch demo modal')
+            //     ->modal('exampleModal')
+            //     ->method('showToast')
+            //     ->icon('full-screen'),
 
-            Button::make('Export file')
+            Button::make('Descargar data')
                 ->method('export')
                 ->icon('cloud-download')
                 ->rawClick()
                 ->novalidate(),
 
-            DropDown::make('Dropdown button')
-                ->icon('folder-alt')
-                ->list([
+            // DropDown::make('Dropdown button')
+            //     ->icon('folder-alt')
+            //     ->list([
 
-                    Button::make('Action')
-                        ->method('showToast')
-                        ->icon('bag'),
+            //         Button::make('Action')
+            //             ->method('showToast')
+            //             ->icon('bag'),
 
-                    Button::make('Another action')
-                        ->method('showToast')
-                        ->icon('bubbles'),
+            //         Button::make('Another action')
+            //             ->method('showToast')
+            //             ->icon('bubbles'),
 
-                    Button::make('Something else here')
-                        ->method('showToast')
-                        ->icon('bulb'),
+            //         Button::make('Something else here')
+            //             ->method('showToast')
+            //             ->icon('bulb'),
 
-                    Button::make('Confirm button')
-                        ->method('showToast')
-                        ->confirm('If you click you will see a toast message')
-                        ->novalidate()
-                        ->icon('shield'),
-                ]),
+            //         Button::make('Confirm button')
+            //             ->method('showToast')
+            //             ->confirm('If you click you will see a toast message')
+            //             ->novalidate()
+            //             ->icon('shield'),
+                // ]),
 
         ];
     }
@@ -153,47 +159,50 @@ class ExampleScreen extends Screen
     {
         return [
             Layout::metrics([
-                'Sales Today'    => 'metrics.sales',
-                'Visitors Today' => 'metrics.visitors',
-                'Pending Orders' => 'metrics.orders',
-                'Total Earnings' => 'metrics.total',
+                'Ventas del dia'    => 'metrics.sales',
+                'Gastos del dia' => 'metrics.visitors',
+                'Ordenes pendientes' => 'metrics.orders',
+                'Ingresos totales' => 'metrics.total',
             ]),
 
             Layout::columns([
-                ChartLineExample::make('charts', 'Line Chart')
-                    ->description('It is simple Line Charts with different colors.'),
+                ChartLineExample::make('charts', 'Flujo de productos')
+                    ->description('Flujo de productos del dia de hoy.'),
 
-                ChartBarExample::make('charts', 'Bar Chart')
-                    ->description('It is simple Bar Charts with different colors.'),
+                ChartBarExample::make('charts', 'Inventario por productos por semana')
+                    ->description('Cantidad en el inventario por productos'),
             ]),
 
-            Layout::table('table', [
-                TD::make('id', 'ID')
-                    ->width('150')
-                    ->render(fn (Repository $model) => // Please use view('path')
-"<img src='https://loremflickr.com/500/300?random={$model->get('id')}'
-                              alt='sample'
-                              class='mw-100 d-block img-fluid rounded-1 w-100'>
-                            <span class='small text-muted mt-1 mb-0'># {$model->get('id')}</span>"),
-
-                TD::make('name', 'Name')
-                    ->width('450')
-                    ->render(fn (Repository $model) => Str::limit($model->get('name'), 200)),
-
-                TD::make('price', 'Price')
-                    ->render(fn (Repository $model) => '$ '.number_format($model->get('price'), 2)),
-
-                TD::make('created_at', 'Created'),
-            ]),
-
-            Layout::modal('exampleModal', Layout::rows([
-                Input::make('toast')
-                    ->title('Messages to display')
-                    ->placeholder('Hello world!')
-                    ->help('The entered text will be displayed on the right side as a toast.')
-                    ->required(),
-            ]))->title('Create your own toast message'),
-        ];
+            Layout::table('Ordenes', [
+                    TD::make('id'),
+                    TD::make('product_id', 'precio')
+                        ->render(function (Order $post) {
+                            return Product::find($post->product_id)->name;
+                        }),
+                    TD::make('presentation_id', 'presentacion')
+                        ->render(function (Order $post) {
+                            return Presentation::find($post->presentation_id)->name;
+                        }),
+                    TD::make('status', 'Estado'),
+                    TD::make('quantity', 'cantidad'),
+                    TD::make('subtotal', 'total'),
+                    TD::make('created_at', 'creado'),
+                    TD::make('updated_at', 'creado'),
+                    TD::make('Actions', 'Accion')
+                    ->render(function (Order $post) {
+                        return Button::make('Eliminar')
+                        ->icon('trash')
+                        ->confirm('Despues de eliminar, la precentacion se habrá ido para siempre')
+                        ->method('delete', ['task' => $post->id]);
+                    }),
+                    TD::make('Verify', 'Accion')
+                    ->render(function (Order $post) {
+                        return Button::make('Aceptar')
+                        ->icon('check')
+                        ->confirm('Despues de aceptar, se descontara de tu inventario')
+                        ->method('accept', ['task' => $post->id]);
+                    }),
+        ])];
     }
 
     /**

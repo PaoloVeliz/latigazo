@@ -21,7 +21,7 @@ class ExampleChartsScreen extends Screen
         return [
             'charts' => [
                 [
-                    'name'   => 'Some Data',
+                    'name'   => 'Productos del dia de hoy',
                     'values' => [25, 40, 30, 35, 8, 52, 17],
                     'labels' => ['12am-3am', '3am-6am', '6am-9am', '9am-12pm', '12pm-3pm', '3pm-6pm', '6pm-9pm'],
                 ],
